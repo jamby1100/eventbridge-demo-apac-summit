@@ -10,18 +10,10 @@ def handler(event, context):
     try:
         print("ENTERED HANDLER")
 
-        if 'detail' in event:
-            body = event['detail']
-
-            primary_key = {}
-            primary_key["user_id"] = body['user_id']
-
-            body["message"] = f"Your order {body['order_number']} has been marked as delivered!"
-        else:
-            body = json.loads(event['body'])
-        
-            primary_key = {}
-            primary_key["user_id"] = event['pathParameters']['user_id']
+        body = json.loads(event['body'])
+    
+        primary_key = {}
+        primary_key["user_id"] = event['pathParameters']['user_id']
 
         topic_arn = os.getenv("SNS_TOPIC_ARN")
 
