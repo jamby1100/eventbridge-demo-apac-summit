@@ -3,7 +3,11 @@
 ## Developing
 
 ```sh
-serverless offline --region ap-southeast-1 --stage dev
+source venv/bin/activate
+
+ACCOUNT_ID=$(aws sts get-caller-identity --query "Account" --output text)
+
+serverless offline --region ap-southeast-1 --stage dev --accountId $ACCOUNT_ID
 ```
 
 ## Initial Project Setup
