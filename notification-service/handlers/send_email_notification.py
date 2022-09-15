@@ -10,10 +10,17 @@ def handler(event, context):
     try:
         print("ENTERED HANDLER")
 
-        body = json.loads(event['body'])
-    
-        primary_key = {}
-        primary_key["user_id"] = event['pathParameters']['user_id']
+        if 'detail' in event:
+            body = event['detail']
+
+            primary_key = {}
+            primary_key["user_id"] = body['user_id']
+        else:
+            body = json.loads(event['body'])
+
+            primary_key = {}
+            primary_key["user_id"] = event['pathParameters']['user_id']
+
 
         topic_arn = os.getenv("SNS_TOPIC_ARN")
 

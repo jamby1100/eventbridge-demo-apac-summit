@@ -4,6 +4,8 @@
 ACCOUNT_ID=$(aws sts get-caller-identity --query "Account" --output text)
 
 serverless offline --region ap-southeast-1 --stage dev --accountId $ACCOUNT_ID
+
+ACCOUNT_ID=$(aws sts get-caller-identity --query "Account" --output text)
 serverless deploy --region ap-southeast-1 --stage dev --accountId $ACCOUNT_ID
 ```
 

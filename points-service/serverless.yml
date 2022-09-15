@@ -20,10 +20,8 @@ provider:
   environment:
     USERS_TABLE: ${self:provider.stage}-ecom-users-table
     EVENT_SOURCE_NAME: ph.ecommerce.com
-    EVENT_BUS_NAME:  ${self:provider.stage}-ecom-event-bus
+    EVENT_BUS_NAME:  ${self:provider.stage}-ecom-event-bus-two
     EVENT_BUS_ARN: arn:aws:events:${self:custom.region}:${self:custom.accountId}:event-bus/${self:provider.environment.EVENT_BUS_NAME}
-
-
 
 functions:
   checkUserPoints:
@@ -33,7 +31,14 @@ functions:
           path: /users/{user_id}/points
           method: get
 
-  awardPointsSix:
+  awardPoints:
+    handler: handlers/award_points.handler
+    events:
+      - http:
+          path: /users/{user_id}/points
+          method: post
+
+  awardPointsTenTen:
     handler: handlers/award_points.handler
     events:
       - eventBridge:
@@ -43,13 +48,6 @@ functions:
               - ${self:provider.environment.EVENT_SOURCE_NAME}
             detail-type:
               - order_delivered
-
-  awardPoints:
-    handler: handlers/award_points.handler
-    events:
-      - http:
-          path: /users/{user_id}/points
-          method: post
 
 resources:
   Resources:

@@ -21,6 +21,7 @@ def handler(event, context):
             primary_key = {}
             primary_key["user_id"] = event['pathParameters']['user_id']
 
+
         user = User.create_if_not_exist(primary_key)
         user.award_points(body)
         user.save()
