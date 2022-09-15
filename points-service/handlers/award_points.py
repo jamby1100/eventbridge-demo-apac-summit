@@ -10,16 +10,10 @@ def handler(event, context):
         print("AND THE EVENT IS NOWWWW!!!!<3 <3")
         print(event)
 
-        if 'detail' in event:
-            body = event['detail']
+        body = json.loads(event['body'])
 
-            primary_key = {}
-            primary_key["user_id"] = body['user_id']
-        else:
-            body = json.loads(event['body'])
-
-            primary_key = {}
-            primary_key["user_id"] = event['pathParameters']['user_id']
+        primary_key = {}
+        primary_key["user_id"] = event['pathParameters']['user_id']
 
         user = User.create_if_not_exist(primary_key)
         user.award_points(body)

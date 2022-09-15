@@ -15,15 +15,8 @@ provider:
     - Effect: "Allow"
       Action: "sns:*"
       Resource: "*"
-    - Effect: "Allow"
-      Action: "events:*"
-      Resource: "*"
   environment:
     USERS_TABLE: ${self:provider.stage}-ecom-users-table
-    EVENT_SOURCE_NAME: ph.ecommerce.com
-    EVENT_BUS_NAME:  ${self:provider.stage}-ecom-event-bus
-    EVENT_BUS_ARN: arn:aws:events:${self:custom.region}:${self:custom.accountId}:event-bus/${self:provider.environment.EVENT_BUS_NAME}
-
 
 
 functions:
@@ -33,17 +26,6 @@ functions:
       - http:
           path: /users/{user_id}/points
           method: get
-
-  awardPointsSix:
-    handler: handlers/award_points.handler
-    events:
-      - eventBridge:
-          eventBus: ${self:provider.environment.EVENT_BUS_ARN}
-          pattern:
-            source:
-              - ${self:provider.environment.EVENT_SOURCE_NAME}
-            detail-type:
-              - order_delivered
 
   awardPoints:
     handler: handlers/award_points.handler

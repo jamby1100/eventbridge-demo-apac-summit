@@ -14,13 +14,8 @@ provider:
     - Effect: "Allow"
       Action: "sns:*"
       Resource: "*"
-    - Effect: "Allow"
-      Action: "events:*"
-      Resource: "*"
   environment:
     ORDERS_TABLE: ${self:provider.stage}-ecom-orders-table
-    EVENT_SOURCE_NAME: ph.ecommerce.com
-    EVENT_BUS_NAME:  ${self:provider.stage}-ecom-event-bus
 
 functions:
   markOrderAsDelivered:
@@ -39,11 +34,6 @@ functions:
 
 resources:
   Resources:
-    EcommerceEventBus:
-      Type: AWS::Events::EventBus
-      Properties: 
-        Name: ${self:provider.environment.EVENT_BUS_NAME}
-    
     OrdersTable:
       Type: 'AWS::DynamoDB::Table'
       Properties:
