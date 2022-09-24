@@ -23,6 +23,9 @@ pip install pytz
 pip freeze > requirements.txt
 
 serverless deploy --region ap-southeast-1 --stage dev
+serverless deploy --region ap-southeast-1 --stage pre
+
+
 serverless plugin install -n serverless-offline
 serverless plugin install -n serverless-python-requirements 
 

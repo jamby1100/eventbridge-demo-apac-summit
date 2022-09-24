@@ -4,7 +4,6 @@ import string
 
 from helpers.exceptions import DataException, RequestException
 from models.dynamodb_model_base import DynamodbModelBase
-from models.eventbridge_event import EventbridgeEvent
 
 
 class Order(DynamodbModelBase):
